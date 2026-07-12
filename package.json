@@ -1,0 +1,19 @@
+{
+  "name": "codex-resource-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A searchable, validated workbench for the Codex CLI ecosystem.",
+  "license": "CC0-1.0",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "check": "npm run build && node scripts/validate-catalog.mjs",
+    "check:github": "node scripts/audit-github.mjs",
+    "check:web": "node scripts/audit-web-links.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "test": "npm run check"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

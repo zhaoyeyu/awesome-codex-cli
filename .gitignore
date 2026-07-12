@@ -1,3 +1,5 @@
 assets/social-preview.png
 .local/
 .playwright-mcp/
+.audit/
+node_modules/

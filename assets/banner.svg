@@ -88,17 +88,17 @@
   <!-- Terminal prompt icon -->
   <text x="640" y="185" text-anchor="middle" font-family="'Courier New', monospace" font-size="48" fill="#00ff88" filter="url(#glow-lg)" opacity="0.7">&gt;_</text>
 
-  <!-- AWESOME text -->
-  <text x="640" y="280" text-anchor="middle" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="96" font-weight="900" fill="url(#title-grad)" filter="url(#glow-lg)" letter-spacing="16">AWESOME</text>
+  <!-- CODEX text -->
+  <text x="640" y="280" text-anchor="middle" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="96" font-weight="900" fill="url(#title-grad)" filter="url(#glow-lg)" letter-spacing="16">CODEX</text>
 
-  <!-- CODEX CLI text -->
-  <text x="640" y="370" text-anchor="middle" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="80" font-weight="900" fill="url(#green-glow)" filter="url(#glow-lg)" letter-spacing="12">CODEX CLI</text>
+  <!-- Resource Workbench text -->
+  <text x="640" y="370" text-anchor="middle" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="54" font-weight="900" fill="url(#green-glow)" filter="url(#glow-lg)" letter-spacing="7">RESOURCE WORKBENCH</text>
 
   <!-- Horizontal accent line -->
   <line x1="340" y1="410" x2="940" y2="410" stroke="url(#cyan-glow)" stroke-width="1.5" filter="url(#glow-sm)" opacity="0.5"/>
 
   <!-- Subtitle -->
-  <text x="640" y="460" text-anchor="middle" font-family="'Courier New', monospace" font-size="20" fill="#8b949e" letter-spacing="4">THE CURATED LIST FOR OPENAI'S TERMINAL AGENT</text>
+  <text x="640" y="460" text-anchor="middle" font-family="'Courier New', monospace" font-size="20" fill="#8b949e" letter-spacing="4">SEARCH · EVALUATE · BUILD WITH CODEX</text>
 
   <!-- Decorative dots -->
   <g opacity="0.3">
@@ -114,15 +114,15 @@
 
   <!-- Stats badges row -->
   <g transform="translate(640, 530)">
-    <!-- 150+ Resources badge -->
+    <!-- Verified links badge -->
     <g transform="translate(-160, 0)">
       <rect x="-70" y="-16" width="140" height="32" rx="6" fill="#161b22" stroke="#00d4ff" stroke-width="1" opacity="0.8"/>
-      <text x="0" y="6" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" fill="#00d4ff" filter="url(#glow-sm)">150+ Resources</text>
+      <text x="0" y="6" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" fill="#00d4ff" filter="url(#glow-sm)">Verified Links</text>
     </g>
-    <!-- Open Source badge -->
+    <!-- Search and filters badge -->
     <g transform="translate(0, 0)">
       <rect x="-60" y="-16" width="120" height="32" rx="6" fill="#161b22" stroke="#00ff88" stroke-width="1" opacity="0.8"/>
-      <text x="0" y="6" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" fill="#00ff88" filter="url(#glow-sm)">Open Source</text>
+      <text x="0" y="6" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" fill="#00ff88" filter="url(#glow-sm)">Search + Filter</text>
     </g>
     <!-- CC0 License badge -->
     <g transform="translate(160, 0)">

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Search, filter, save, and evaluate maintained Codex CLI resources.">
+    <meta name="theme-color" content="#08111f">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <title>Codex Resource Workbench</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="catalog.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#catalog">Skip to catalog</a>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Codex Resource Workbench home">
+        <span class="brand-mark" aria-hidden="true">&gt;_</span>
+        <span>
+          <strong>Codex</strong>
+          <small>Resource Workbench</small>
+        </span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="https://github.com/zhaoyeyu/awesome-codex-cli#readme">About</a>
+        <a href="https://github.com/zhaoyeyu/awesome-codex-cli/blob/main/CONTRIBUTING.md">Contribute</a>
+        <a href="https://github.com/zhaoyeyu/awesome-codex-cli" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+          <span class="theme-icon" aria-hidden="true">☼</span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> Curated for decisions, not collecting</div>
+          <h1 id="hero-title">Find the right Codex tool.<br><em>Know what to trust.</em></h1>
+          <p>
+            A searchable workbench for official docs, skills, plugins, orchestration,
+            interfaces, and operations. Every entry has structured metadata and a recorded health check.
+          </p>
+
+          <label class="hero-search" for="search-input">
+            <span aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Search by tool, outcome, platform, or tag…">
+            <kbd>/</kbd>
+          </label>
+
+          <div class="quick-paths" aria-label="Quick searches">
+            <span>Quick paths</span>
+            <button type="button" data-quick-query="security">Safer setup</button>
+            <button type="button" data-quick-query="multi-agent">Run agents</button>
+            <button type="button" data-quick-query="visual">Visual tools</button>
+            <button type="button" data-quick-query="local-first">Local-first</button>
+          </div>
+        </div>
+
+        <div class="hero-console" aria-label="Catalog health summary">
+          <div class="console-bar">
+            <span class="console-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>catalog.health</span>
+            <span class="live-label"><i></i> checked</span>
+          </div>
+          <div class="console-body">
+            <div class="console-line"><span class="prompt">$</span> inspect ecosystem --strict</div>
+            <div class="health-grid">
+              <div><strong id="resource-count">—</strong><span>usable resources</span></div>
+              <div><strong id="category-count">—</strong><span>focused categories</span></div>
+              <div><strong id="official-count">—</strong><span>official sources</span></div>
+              <div><strong id="verified-count">—</strong><span>links recorded</span></div>
+            </div>
+            <div class="console-output">
+              <span class="ok">✓</span>
+              <span>Duplicate URLs rejected</span>
+              <span class="ok">✓</span>
+              <span>Risk-sensitive tools labeled</span>
+              <span class="ok">✓</span>
+              <span>Catalog generated from one source</span>
+            </div>
+            <div class="last-check">Catalog snapshot <time id="last-check">—</time></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-strip" aria-label="Security notice">
+        <div class="trust-icon" aria-hidden="true">!</div>
+        <p><strong>Community listing is not a security endorsement.</strong> Review source, permissions, network access, and credential handling before installing tools marked “review”.</p>
+        <button type="button" id="show-review-risk">Show review items</button>
+      </section>
+
+      <section class="workspace" id="catalog" aria-labelledby="catalog-title">
+        <aside class="filter-panel" aria-label="Catalog filters">
+          <div class="filter-heading">
+            <span>Categories</span>
+            <button id="clear-filters" type="button">Reset</button>
+          </div>
+          <div id="category-list" class="category-list"></div>
+
+          <div class="filter-block">
+            <label for="risk-filter">Review level</label>
+            <select id="risk-filter">
+              <option value="all">All resources</option>
+              <option value="standard">Standard review</option>
+              <option value="review">Extra review advised</option>
+            </select>
+          </div>
+
+          <label class="saved-toggle">
+            <input id="saved-only" type="checkbox">
+            <span>Saved only</span>
+            <output id="saved-count">0</output>
+          </label>
+
+          <div class="policy-card">
+            <span aria-hidden="true">◇</span>
+            <strong>Why this is different</strong>
+            <p>Structured data, reproducible checks, no volatile star badges, and clear risk labels.</p>
+            <a href="https://github.com/zhaoyeyu/awesome-codex-cli/blob/main/CONTRIBUTING.md">Read the curation policy →</a>
+          </div>
+        </aside>
+
+        <div class="catalog-panel">
+          <div class="catalog-toolbar">
+            <div>
+              <p class="section-kicker">RESOURCE INDEX</p>
+              <h2 id="catalog-title">Explore the workbench</h2>
+              <p id="result-summary" role="status" aria-live="polite">Loading catalog…</p>
+            </div>
+            <div class="toolbar-actions">
+              <label>
+                <span class="sr-only">Sort resources</span>
+                <select id="sort-select">
+                  <option value="featured">Featured first</option>
+                  <option value="az">Name A–Z</option>
+                  <option value="recent">Recently active</option>
+                </select>
+              </label>
+              <div class="view-switch" role="group" aria-label="Catalog view">
+                <button id="grid-view" type="button" class="active" aria-pressed="true" title="Grid view">▦</button>
+                <button id="list-view" type="button" aria-pressed="false" title="List view">☷</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="active-filter" class="active-filter" hidden></div>
+          <div id="resource-grid" class="resource-grid" aria-busy="true"></div>
+          <div id="empty-state" class="empty-state" hidden>
+            <span aria-hidden="true">⌁</span>
+            <h3>No resources match</h3>
+            <p>Try a broader term or reset the active filters.</p>
+            <button type="button">Reset filters</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <span class="brand-mark" aria-hidden="true">&gt;_</span>
+        <p><strong>Codex Resource Workbench</strong><br>A community-maintained project. Not affiliated with or endorsed by OpenAI.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/zhaoyeyu/awesome-codex-cli#readme">Documentation</a>
+        <a href="https://github.com/zhaoyeyu/awesome-codex-cli/blob/main/CONTRIBUTING.md">Add a resource</a>
+        <a href="catalog.json">Raw catalog</a>
+        <a href="https://developers.openai.com/codex" target="_blank" rel="noreferrer">Official Codex docs ↗</a>
+      </div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <noscript><p class="noscript">JavaScript is required for search and filters. The raw catalog remains available as <a href="catalog.json">JSON</a>.</p></noscript>
+  </body>
+</html>

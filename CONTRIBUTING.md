@@ -1,46 +1,91 @@
-# Contribution Guidelines
+# Contributing
 
-Thank you for contributing to Awesome Codex CLI!
+Thanks for helping make the Codex Resource Workbench useful. The goal is not to collect the most links; it is to keep a smaller, searchable catalog that helps people make informed choices.
 
-## How to Contribute
+## Before submitting
 
-1. **Found a great resource?** [Open an issue](https://github.com/user/awesome-codex-cli/issues/new) with the link and a brief description of why it's awesome.
-2. **Want to add it yourself?** Fork, edit `README.md`, and submit a PR.
+A resource must meet all of these requirements:
 
-## Quality Standards
+- It directly supports Codex CLI, or it is cross-agent software with documented Codex compatibility.
+- It has a stable HTTPS page with enough documentation to evaluate and use it.
+- Its repository or product is active. As a default, the latest meaningful activity should be within the last 12 months.
+- Its description is factual, specific, and free of marketing claims or volatile star, install, resource, or adoption counts.
+- It is not a duplicate, a renamed copy of an existing entry, an archived experiment, or a legacy integration for the unrelated 2021 Codex API.
+- Its license and credential-handling behavior are discoverable when those concerns apply.
+- Authentication, account switching, model proxies, remote control, and sandbox-bypass tools use `"risk": "review"` and include the `security` tag.
 
-Every entry must:
+Being open source is helpful but is not itself proof of safety or quality.
 
-- **Be directly related to Codex CLI** — general AI/LLM tools don't belong unless they have specific Codex integration.
-- **Be actively maintained** — no abandoned projects (last commit > 6 months ago) unless they are stable and still useful.
-- **Have a clear description** — one sentence explaining what it does and why it's worth your time.
-- **Include star badge** — append `![GitHub stars](https://img.shields.io/github/stars/owner/repo?style=flat-square)` for GitHub repos. These update automatically.
+## Add or update a resource
 
-## Format
+1. Edit the canonical [`data/resources.json`](data/resources.json) file. Do not edit generated files in `docs/catalog.js` or `docs/catalog.json`.
+2. Reuse an existing category. New categories need a clear user need and multiple qualifying resources.
+3. Use a stable ID. Existing IDs must not change when a project is renamed.
+4. Record the verification method and date. For GitHub projects, include the canonical `owner/repository` and latest push date returned by GitHub.
+5. Run the build and deterministic checks.
 
-```markdown
-- [Name](https://link) — One-sentence description that explains value, not just function. ⭐ 123
+```bash
+npm test
 ```
 
-**Do:**
-- "Desktop GUI for Codex CLI with visual session management and diff viewer."
-- "Sync AGENTS.md ↔ CLAUDE.md ↔ .cursorrules. One source, all formats."
+For link changes, also run the relevant network check:
 
-**Don't:**
-- "A tool for Codex CLI."
-- "GUI application."
+```bash
+npm run check:github
+npm run check:web
+```
 
-## What We Won't Accept
+An entry has this shape:
 
-- Self-promotion without substance — your project needs real users or a clear unique value.
-- Duplicate entries — check if something similar already exists in the list.
-- Paid products without free tiers — unless they're exceptionally useful and clearly labeled.
-- Tools that only work with the legacy Codex API (2021-2023) — this list is for Codex CLI.
+```json
+{
+  "id": "example-tool-stable-id",
+  "name": "Example Tool",
+  "url": "https://github.com/example/example-tool",
+  "description": "Runs isolated Codex tasks in Git worktrees and presents their diffs for review.",
+  "category": "workflow",
+  "kind": "project",
+  "tags": ["automation", "open-source"],
+  "risk": "standard",
+  "featured": false,
+  "verification": {
+    "status": "reachable",
+    "checkedAt": "2026-07-12",
+    "method": "github-api",
+    "repository": "example/example-tool",
+    "lastPush": "2026-07-01"
+  }
+}
+```
 
-## Categories
+## Writing descriptions
 
-Add entries to the most specific category. If no category fits, propose a new one in your PR description.
+Say what someone can accomplish and mention the Codex integration. Avoid superlatives and metrics that will quickly become stale.
 
-## Star Badges
+Good:
 
-Star badges are powered by [shields.io](https://shields.io) and update automatically. Use the `flat-square` style for consistency.
+> Runs parallel Codex tasks in isolated worktrees and provides a review queue for their diffs.
+
+Not useful:
+
+> The ultimate revolutionary agent tool with thousands of users.
+
+## Security-sensitive resources
+
+Entries that handle credentials, authentication state, proxies, remote commands, or unsandboxed execution need extra scrutiny. A pull request should explain:
+
+- what secrets or account state the tool reads;
+- where data is stored or transmitted;
+- which commands and permissions it needs;
+- whether a local-only or read-only mode exists;
+- how a reviewer can test it without exposing a real account.
+
+The catalog may decline a working project when its trust model is unclear.
+
+## Public-boundary rules
+
+Do not commit personal information, credentials, private repository details, local machine paths, copied task instructions, internal review notes, or placeholder issue links. Use synthetic examples and public URLs only.
+
+## Propose a change
+
+Open an [issue](https://github.com/zhaoyeyu/awesome-codex-cli/issues/new) for a questionable fit, or submit a pull request with the catalog change and generated assets. Include the resource’s Codex use case and the checks you ran.
